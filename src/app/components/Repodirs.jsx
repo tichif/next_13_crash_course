@@ -2,7 +2,12 @@ import Link from 'next/link';
 
 async function fetchRepoContent(name) {
   const response = await fetch(
-    `https://api.github.com/repos/tichif/${name}/contents`
+    `https://api.github.com/repos/tichif/${name}/contents`,
+    {
+      next: {
+        revalidate: 5 * 60, // 5mn
+      },
+    }
   );
   const content = await response.json();
   return content;

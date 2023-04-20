@@ -2,7 +2,11 @@ import Link from 'next/link';
 import { FaStar, FaCodeBranch, FaEye } from 'react-icons/fa';
 
 export async function fetchRepo(name) {
-  const response = await fetch(`https://api.github.com/repos/tichif/${name}`);
+  const response = await fetch(`https://api.github.com/repos/tichif/${name}`, {
+    next: {
+      revalidate: 5 * 60, // 5mn
+    },
+  });
   const repo = await response.json();
   return repo;
 }
